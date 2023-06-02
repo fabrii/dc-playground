@@ -1,0 +1,71 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@digitalbazaar/ed25519-signature-2020": "5.2.0",
+    "@digitalbazaar/security-document-loader": "2.0.0",
+    "@digitalbazaar/vc": "6.0.1",
+    "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/react": "13.4.0",
+    "@testing-library/user-event": "13.5.0",
+    "@transmute/jose-ld": "0.7.0-unstable.80",
+    "buffer": "6.0.3",
+    "crypto": "npm:crypto-browserify",
+    "crypto-browserify": "3.12.0",
+    "crypto-js": "4.1.1",
+    "events": "1.0.0",
+    "https-browserify": "1.0.0",
+    "jsonld": "8.2.0",
+    "process": "0.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "readable-stream": "1.0.33",
+    "rn-nodeify": "10.3.0",
+    "stream": "npm:stream-browserify",
+    "stream-browserify": "3.0.0",
+    "util": "0.10.4",
+    "web-vitals": "2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "react-native": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "browser": {
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  }
+}
