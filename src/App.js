@@ -7,33 +7,33 @@ import objMiPerfil from './miPerfilDriverLicense.json';
 
 function App() {
 
-  const qrValue = `{
+    const qrValue = `{
     "@context": [
         "https://www.w3.org/2018/credentials/v1",
-        "https://localhost:8080/api/contexts/transport/driverlicense-v1"
+        "https://miperfil-cvr-staging.agesic.gub.uy/api/contexts/transport/driverlicense-v1"
     ],
     "type": [
         "VerifiableCredential",
         "DriverLicenseCredential"
     ],
-    "id": "urn:uuid:0fb2296e-cb33-43e2-84ac-e17954a4a411",
+    "id": "urn:uuid:88dc0275-4e6c-468a-a5d8-51ada3e15ca2",
     "issuer": "urn:oid:2.16.858.0.0.0.3.0",
-    "issuanceDate": "2023-06-02T20:11:34Z",
-    "expirationDate": "2024-06-02T20:11:33Z",
+    "issuanceDate": "2023-06-02T15:47:05Z",
+    "expirationDate": "2024-06-02T15:47:05Z",
     "credentialSubject": {
         "id": "did:key:z2DfPjA1yT6cWbLjxavov7PpqNipHUNW8QMuj6SQPPm11zP",
         "name": "Fabricio Gregorio",
         "idUruguay": "uy-ci-44679760",
         "category": "A",
         "observations": "Lentes",
-        "image": "urn:uuid:fff638d3-5ef1-4d0c-81e1-f665fab982f1"
+        "image": "urn:uuid:bd13e335-bc56-4313-b4c8-84eb716f78c0"
     },
     "proof": {
         "type": "RsaSignature2018",
-        "created": "2023-06-02T20:11:34Z",
+        "created": "2023-06-02T15:47:05Z",
         "proofPurpose": "assertionMethod",
         "verificationMethod": "urn:oid:2.16.858.0.0.0.3.0#1",
-        "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJSUzI1NiJ9..pQxr8z7eUbax4iJpkz4-Y-1gglCpgfQ2NxuyxucxDc2XtBGAtNkSuiUk47LfMoCSAwVqNKi7ABCGq6Iq-ogI1nxHOYVwyI9xWMm39cpU8cFykYKoMbQX9YfuD3Eb2ZGVvsIhVil77uAo_zfEF_ifxhOSxBSkncvBKULhRdbMBjtoKBHFMEAqlMSy-wC70ugpsIb8u_H57HhlD3bq13nSVFyyN2QiH9Q6d6h1rFUXzfrbN8C5rmAVTFx--AFUywj6qKsaHC5UIebGcUPhPt1pf129EPqGASIYoi4PWp3htq8vd92NS8CP40dNZb9B7P44ru4hm8hECVx9bIR4VaydNw"
+        "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJSUzI1NiJ9..MkiQtgRtzT7HA7OVD_JRmyyuEkdiwdwBq88N_WncPT8WnwWJvdO1IVWLEeLI_c4J-uI6kudfs9FSM4P8d5rv1JsYS_t8d1t9SHrOc55x2YmO3F5JS77SMoOAcs2dYOvMC5G0H7_Kn-XupfpzPHhZvnF9YlUQCv9MKiWgQTsAJJiOOu5B27jBDBiRjHXHkK6a5hftN-V-9TGW3zc6LE1P8RunZrHvKp2xqJns3gq5-dZBWdX15USbAAhNxcfgoYg2VyFctcdERuTpsCtEwOUO0-bFekm2LKSWf0tnEFOUE2OTnMm9Rh52QqArgMm8kjGIS0uEEJ-3b_DnQu3iobApZg"
     }
 }`
 
@@ -107,7 +107,7 @@ AwIDAQAB
 
   const loader = securityLoader()
   loader.setProtocolHandler({ protocol: "urn", handler: urnResolver })
-  loader.addStatic('https://localhost:8080/api/contexts/transport/driverlicense-v1', objMiPerfil)
+  loader.addStatic('https://miperfil-cvr-staging.agesic.gub.uy/api/contexts/transport/driverlicense-v1', objMiPerfil)
 
   const documentLoader = loader.build()
 
