@@ -1,41 +1,51 @@
 import logo from './logo.svg';
 import './App.css';
 import { RsaSignature2018 } from "./RSA_ED25519/rsa/RsaSignature2018"
-import * as vc from "@digitalbazaar/vc";
-import { securityLoader } from "@digitalbazaar/security-document-loader"
+//import { Ed25519Signature2020 } from "@digitalcredentials/ed25519-signature-2020"
+import { Ed25519Signature2020 } from "./RSA_ED25519/Ed25519Signature2020"
+import vc from "@digitalcredentials/vc"
+import { securityLoader } from "@digitalcredentials/security-document-loader"
 import objMiPerfil from './miPerfilDriverLicense.json';
+import { purposes } from "@digitalcredentials/jsonld-signatures"
 
 function App() {
 
+  
   const qrValue = `{
     "@context": [
         "https://www.w3.org/2018/credentials/v1",
-        "https://localhost:8080/api/contexts/transport/driverlicense-v1"
+        "https://miperfil-cvr-staging.agesic.gub.uy/api/contexts/transport/driverlicense-v1"
     ],
     "type": [
         "VerifiableCredential",
         "DriverLicenseCredential"
     ],
-    "id": "urn:uuid:0fb2296e-cb33-43e2-84ac-e17954a4a411",
+    "id": "urn:uuid:617e4df9-abbd-4426-9bda-55f93ab0945e",
     "issuer": "urn:oid:2.16.858.0.0.0.3.0",
-    "issuanceDate": "2023-06-02T20:11:34Z",
-    "expirationDate": "2024-06-02T20:11:33Z",
+    "issuanceDate": "2023-06-03T20:00:01Z",
+    "expirationDate": "2024-06-03T20:00:01Z",
     "credentialSubject": {
         "id": "did:key:z2DfPjA1yT6cWbLjxavov7PpqNipHUNW8QMuj6SQPPm11zP",
         "name": "Fabricio Gregorio",
         "idUruguay": "uy-ci-44679760",
         "category": "A",
         "observations": "Lentes",
-        "image": "urn:uuid:fff638d3-5ef1-4d0c-81e1-f665fab982f1"
+        "image": "urn:uuid:3050cb6b-e726-4c25-a841-c5e4cd1869c8"
     },
     "proof": {
         "type": "RsaSignature2018",
-        "created": "2023-06-02T20:11:34Z",
+        "created": "2023-06-03T20:00:01Z",
         "proofPurpose": "assertionMethod",
         "verificationMethod": "urn:oid:2.16.858.0.0.0.3.0#1",
-        "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJSUzI1NiJ9..pQxr8z7eUbax4iJpkz4-Y-1gglCpgfQ2NxuyxucxDc2XtBGAtNkSuiUk47LfMoCSAwVqNKi7ABCGq6Iq-ogI1nxHOYVwyI9xWMm39cpU8cFykYKoMbQX9YfuD3Eb2ZGVvsIhVil77uAo_zfEF_ifxhOSxBSkncvBKULhRdbMBjtoKBHFMEAqlMSy-wC70ugpsIb8u_H57HhlD3bq13nSVFyyN2QiH9Q6d6h1rFUXzfrbN8C5rmAVTFx--AFUywj6qKsaHC5UIebGcUPhPt1pf129EPqGASIYoi4PWp3htq8vd92NS8CP40dNZb9B7P44ru4hm8hECVx9bIR4VaydNw"
+        "jws": "eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJSUzI1NiJ9..V9U_RvswNOF-0r0BtjWZDA9AEb8ImsMvq4_KTW4VEQyy5TgCtsZVzeusIwYwK4EymFigMEDUGzRxlCeZFDw9o0kTGWutyFWmQYdFAf2i_ZGDjtW1_C1miC8dGkIeg4KoA74RbnLuwSUWlElBZtwfE43XnGdp2BFLDS56QxEmicXyICAIuDtfUSs4GAHeb3h3lGNdTpRh0QtyIthn6jxXepN7K0tza6G6ZzdF6oSUt_ORl9frNdz2az5uBfgAJ9eE3EMhBK1fGpvA7G8t_CDv1Vy5MYkghOLa5uifImpW3PiA0W-0GqkiDJX9ReWPgEsbxt8ceTQqf43dEKM1cslxXw"
     }
 }`
+
+
+
+//const qrValue = "{\"@context\":[\"https:\/\/www.w3.org\/2018\/credentials\/v1\",\"https:\/\/miperfil-cvr-staging.agesic.gub.uy\/api\/contexts\/transport\/driverlicense-v1\",\"https:\/\/w3id.org\/security\/suites\/ed25519-2020\/v1\"],\"type\":[\"VerifiableCredential\",\"DriverLicenseCredential\"],\"id\":\"urn:uuid:a39c3171-39ae-4023-9b7f-51c50b4cbd77\",\"issuer\":\"urn:oid:2.16.858.0.0.0.3.0\",\"issuanceDate\":\"2023-05-23T21:37:44Z\",\"expirationDate\":\"2024-05-23T21:37:43Z\",\"credentialSubject\":{\"id\":\"did:key:z2DfPjA1yT6cWbLjxavov7PpqNipHUNW8QMuj6SQPPm11zP\",\"name\":\"Fabricio Gregorio\",\"idUruguay\":\"uy-ci-44679760\",\"category\":\"A\",\"observations\":\"Lentes\",\"image\":\"urn:uuid:734cfb02-209f-4102-815b-1fa2729d70d3\"},\"proof\":{\"type\":\"Ed25519Signature2020\",\"created\":\"2023-05-23T21:37:44Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"urn:oid:2.16.858.0.0.0.3.0#1\",\"proofValue\":\"z4agAkWzmWqh1qJ3SUNZ9wmhB2QcYX9oXpADqNpNLm8k4NhTWJDTvj1UdyFtvHKYT4qsqtVCp9zmNc7Yc5pmSA4Qv\"}}";
+//const qrPresentationValue = "{\n\"@context\": [\n  \"https://www.w3.org/2018/credentials/v1\",\n  \"https://w3id.org/security/suites/ed25519-2020/v1\"\n],\n\"type\": [\n  \"VerifiablePresentation\"\n],\n\"verifiableCredential\": [\n {\"@context\":[\"https:\/\/www.w3.org\/2018\/credentials\/v1\",\"https:\/\/miperfil-cvr-staging.agesic.gub.uy\/api\/contexts\/transport\/driverlicense-v1\",\"https:\/\/w3id.org\/security\/suites\/ed25519-2020\/v1\"],\"type\":[\"VerifiableCredential\",\"DriverLicenseCredential\"],\"id\":\"urn:uuid:a39c3171-39ae-4023-9b7f-51c50b4cbd77\",\"issuer\":\"urn:oid:2.16.858.0.0.0.3.0\",\"issuanceDate\":\"2023-05-23T21:37:44Z\",\"expirationDate\":\"2024-05-23T21:37:43Z\",\"credentialSubject\":{\"id\":\"did:key:z2DfPjA1yT6cWbLjxavov7PpqNipHUNW8QMuj6SQPPm11zP\",\"name\":\"Fabricio Gregorio\",\"idUruguay\":\"uy-ci-44679760\",\"category\":\"A\",\"observations\":\"Lentes\",\"image\":\"urn:uuid:734cfb02-209f-4102-815b-1fa2729d70d3\"},\"proof\":{\"type\":\"Ed25519Signature2020\",\"created\":\"2023-05-23T21:37:44Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"urn:oid:2.16.858.0.0.0.3.0#1\",\"proofValue\":\"z4agAkWzmWqh1qJ3SUNZ9wmhB2QcYX9oXpADqNpNLm8k4NhTWJDTvj1UdyFtvHKYT4qsqtVCp9zmNc7Yc5pmSA4Qv\"}} \n],\n\"holder\": \"did:key:z6Mkh4Nn9RWwp1gcNGJSkAaW58F9mAsc979pj5ET4QXu85TH\",\n\"proof\": {\n  \"type\": \"Ed25519Signature2020\",\n  \"created\": \"2023-05-08T15:29:02Z\",\n  \"verificationMethod\": \"did:key:z6Mkh4Nn9RWwp1gcNGJSkAaW58F9mAsc979pj5ET4QXu85TH#z6Mkh4Nn9RWwp1gcNGJSkAaW58F9mAsc979pj5ET4QXu85TH\",\n  \"proofPurpose\": \"authentication\",\n  \"challenge\": \"13a0ce32-1075-4110-abbf-8fdbff0f3afe\",\n  \"proofValue\": \"z3LVZMo4EFH5P8XXqXQrfM4G51Ey33udjscPNVSLducFnHM6MorXp89Cv1RjCEZH13jvgsc3r9LoB9T4U132iAkuY\"\n}\n              }"
+
 
   const keypem =  `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVTFFv0Dzi4iXOnA77Ao
@@ -47,12 +57,17 @@ W5yhD2aoNQJKEucoWzwO6AtIlO25or04fvpoqoJgXV5C2aZTJ2i2JYmS0uo5T505
 AwIDAQAB
 -----END PUBLIC KEY-----`;
 
+const presentationPurpose = new purposes.AssertionProofPurpose()
+
+
   const urnResolver = {
     async get(params) {
       let keyObject
       try {
+        
         /*
         if (params.url.includes('#')) {
+          console.log("1")
           keyObject = {
             '@context': 'https://w3id.org/security/suites/ed25519-2020/v1',
             type: "Ed25519VerificationKey2020",
@@ -61,6 +76,7 @@ AwIDAQAB
             publicKeyMultibase: "z6MkuRvMyGYMnsKgfuqdetzypcq7QpEdMgvJyfwJFM9sXVSP",
           }
         } else {
+          console.log("2")
           keyObject = {
             "@context": [
               "https://www.w3.org/ns/did/v1",
@@ -99,7 +115,7 @@ AwIDAQAB
             }]
           }
         }
-
+        
       } catch (e) { throw new Error("NotFoundError") }
       return keyObject
     }
@@ -107,13 +123,41 @@ AwIDAQAB
 
   const loader = securityLoader()
   loader.setProtocolHandler({ protocol: "urn", handler: urnResolver })
-  loader.addStatic('https://localhost:8080/api/contexts/transport/driverlicense-v1', objMiPerfil)
+  loader.addStatic('https://miperfil-cvr-staging.agesic.gub.uy/api/contexts/transport/driverlicense-v1', objMiPerfil)
 
   const documentLoader = loader.build()
 
   function removeStackReplacer(key, value) {
     return key === "stack" ? "..." : value
   }
+
+  async function verifyPresentation(
+    presentation,
+    unsignedPresentation = true
+) {
+    try {
+        const suite = new Ed25519Signature2020();
+        //const suiteRSA = new RsaSignature2018();
+        console.log('verifyPresentation')
+        const result = await vc.verify({
+            presentation,
+            presentationPurpose,
+            suite,
+            documentLoader,
+            unsignedPresentation,
+            // Only check revocation status if any VC has a 'credentialStatus' property
+            //checkStatus: hasRevocation ? checkStatus : undefined
+            checkStatus: undefined
+        })
+        console.log(JSON.stringify(result))
+        return result
+    } catch (err) {
+        console.error('verifyPre', err)
+        console.warn(err)
+
+        throw new Error('Presentation encoded could not be checked for verification and may be malformed.')
+    }
+}
 
   async function verifyCredential(credential) {
     const { issuer } = credential

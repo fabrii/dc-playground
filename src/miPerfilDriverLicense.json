@@ -4,7 +4,7 @@
       "@protected": true,
       "id": "@id",
       "type": "@type",
-      "dlcred": "https://localhost/docs/credentials/driverlicensecredential#",
+      "dlcred": "https://cv-registry.gub.uy/docs/credentials/driverlicensecredential#",
       "DriverLicenseCredential": "dlcred:DriverLicenseCredential",
       "name": "dlcred:name",
       "idUruguay": "dlcred:iduruguay",

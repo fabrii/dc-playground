@@ -2,7 +2,7 @@
  * Copyright (c) 2018-2020 Digital Bazaar, Inc. All rights reserved.
  */
 import * as forge from 'node-forge';
-import { LDKeyPair } from 'crypto-ld';
+import { LDKeyPair } from '@digitalcredentials/crypto-ld';
 import crypto from 'crypto';
 import { Buffer } from "buffer";
 

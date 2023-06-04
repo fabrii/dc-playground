@@ -1,8 +1,9 @@
 /*!
  * Copyright (c) 2020-2022 Digital Bazaar, Inc. All rights reserved.
  */
-import jsigs from 'jsonld-signatures';
+import jsigs from '@digitalcredentials/jsonld-signatures';
 import { encode, decode } from 'base64url-universal';
+import crypto from "crypto";
 const { LinkedDataSignature } = jsigs.suites;
 
 export class JwsLinkedDataSignature extends LinkedDataSignature {
@@ -96,6 +97,64 @@ export class JwsLinkedDataSignature extends LinkedDataSignature {
         return proof;
     }
 
+    async sha256digest({string}) {
+        return new Uint8Array(
+          crypto.createHash('sha256').update(string).digest()
+        );
+      }
+
+      concat = (b1, b2) => {
+        const rval = new Uint8Array(b1.length + b2.length);
+        rval.set(b1, 0);
+        rval.set(b2, b1.length);
+        return rval;
+      };
+
+
+    //overrided to add console.log
+    async createVerifyData({document, proof, documentLoader, expansionMap}) {
+        // get cached document hash
+        let cachedDocHash;
+        const {_hashCache} = this;
+        if(_hashCache && _hashCache.document === document) {
+          cachedDocHash = _hashCache.hash;
+        } else {
+
+
+        //this.canonize(document, {documentLoader, expansionMap})
+        //        .then(c14nDocument => console.log(c14nDocument));
+
+          this._hashCache = {
+            document,
+            // canonize and hash document
+            hash: cachedDocHash =
+              this.canonize(document, {documentLoader, expansionMap})
+                .then(c14nDocument => this.sha256digest({string: c14nDocument}))
+          };
+        }
+
+        //Here is the error
+        
+        this.canonizeProof(
+            proof, {document, documentLoader, expansionMap})
+            .then(c14nProofOptions => {console.log('-----Wrong canonizeProof--------'); console.log(c14nProofOptions); console.log('-----End wrong canonizeProof--------');});
+    
+        // await both c14n proof hash and c14n document hash
+        let [proofHash, docHash] = await Promise.all([
+          // canonize and hash proof
+          this.canonizeProof(
+            proof, {document, documentLoader, expansionMap})
+            .then(c14nProofOptions => this.sha256digest({string: c14nProofOptions})),
+          cachedDocHash
+        ]);
+
+
+    
+        // concatenate hash of c14n proof options and hash of c14n document
+        let asd = this.concat(proofHash, docHash);
+        return asd;
+      }
+    
     /**
      * @param {object} options - Options hashmap.
      * @param {Uint8Array} options.verifyData - The data to verify.
@@ -131,10 +190,6 @@ export class JwsLinkedDataSignature extends LinkedDataSignature {
                 `Invalid JWS header parameters for ${this.type}.`);
         }
 
-        console.log(header)
-        console.log(encodedHeader);
-        console.log(verifyData);
-        // do signature verification
         const signature = decode(encodedSignature);
         const data = _createJws({ encodedHeader, verifyData });
 
@@ -221,11 +276,11 @@ export class JwsLinkedDataSignature extends LinkedDataSignature {
  * @returns {Uint8Array} A combined byte array for signing.
  */
 function _createJws({ encodedHeader, verifyData }) {
-    const encodedHeaderBytes = new TextEncoder().encode(encodedHeader + '.');
+    const encodedHeaderBytes = new TextEncoder().encode(encodedHeader + ".");
 
-    // concatenate the two uint8arrays
     const data = new Uint8Array(encodedHeaderBytes.length + verifyData.length);
     data.set(encodedHeaderBytes, 0);
     data.set(verifyData, encodedHeaderBytes.length);
+
     return data;
 }
